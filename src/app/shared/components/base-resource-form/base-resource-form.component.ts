@@ -73,28 +73,45 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   protected setPageTitle(){
     if(this.currentAction == "new"){
-      this.pageTitle = this.creationPageTittle();
+      this.pageTitle = this.creationPageTitle();
     }else{
-      const categoryName = this.category.name || "";
-      this.pageTitle = `Editando Categoria: ${categoryName}`;
+      this.pageTitle = this.editionPageTitle();
     }
   }
 
+  protected creationPageTitle(): string {
+    return 'Novo';
+  }
+
+  protected editionPageTitle(): string {
+    return 'Edição';
+  }
+
   protected createResource(){
-    const category: Category = Object.assign(new Category(), this.resourceForm.value);
-    this.categoryService.create(category)
+    const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
+    this.resourceService.create(resource)
       .subscribe(
-        category => this.actionsForSuccess(category),
+        resource => this.actionsForSuccess(resource),
         error => this.actionsForError(error)
       );
   }
 
-  protected actionsForSuccess(category : Category){
+  protected updateResource(){
+    const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
+    this.resourceService.update(resource)
+      .subscribe(
+        resource => this.actionsForSuccess(resource),
+        error => this.actionsForError(error)
+      );;
+  }
+
+  protected actionsForSuccess(resource : T){
     toastr.success("Solicitação processada com sucesso!");
+    const baseComponentPath: string = this.route.snapshot.parent.url[0].path;
 
     // redirect/reload component page
-    this.router.navigateByUrl('categories', {skipLocationChange: true}).then(
-      () => this.router.navigate(['categories', category.id, 'edit'])
+    this.router.navigateByUrl(baseComponentPath, {skipLocationChange: true}).then(
+      () => this.router.navigate([baseComponentPath, resource.id, 'edit'])
     );
   }
 
@@ -108,16 +125,5 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     }
   }
 
-  protected updateResource(){
-    const category: Category = Object.assign(new Category(), this.resourceForm.value);
-    this.categoryService.update(category)
-      .subscribe(
-        category => this.actionsForSuccess(category),
-        error => this.actionsForError(error)
-      );;
-  }
-
-  protected creationPageTittle() {
-    return '';
-  }
+  protected abstract buildResourceForm(): void;
 }
