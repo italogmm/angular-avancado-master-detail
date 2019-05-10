@@ -4,9 +4,7 @@ import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-form-field-error',
   template: `
-    <p class="text-danger">
-      {{errorMessage}}
-    </p>
+    <p-message severity="error" [text]="errorMessage" *ngIf="mustShowErrorMessage()"></p-message>
   `,
   styleUrls: ['./form-field-error.component.css']
 })

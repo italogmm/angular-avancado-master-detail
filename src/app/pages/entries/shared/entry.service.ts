@@ -24,13 +24,8 @@ export class EntryService extends BaseResourceService<Entry> {
   }
 
   private setCategoryAndSendToService(entry: Entry, sendFn: any): Observable<Entry> {
-    return this.categoryService.getById(entry.categoryId).pipe(
-      flatMap(category => {
-        entry.category = category;
-        return sendFn(entry);
-      }),
-      catchError(this.handleError)
-    );
+    entry.categoryId = entry.category.id;
+    return sendFn(entry);
   }
 
   public getByMonthAndYear(month: number, year: number): Observable<Entry[]>{

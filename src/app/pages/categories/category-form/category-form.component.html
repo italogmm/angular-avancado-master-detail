@@ -1,5 +1,5 @@
 <app-bread-crumb
-  [items]="[{text: 'Categorias', link: '/categories'}, {text: pageTitle}]">
+  [items]="[{label: 'Categorias', url: '/categories'}, {label: 'Cadastro de categorias'}]">
 </app-bread-crumb>
 
 <app-page-header
@@ -10,34 +10,43 @@
 </app-page-header>
 
 <form [formGroup]="resourceForm" (submit)="submitForm()">
-  
-  <div class="card">
-    <div class="card-header">
-      {{pageTitle}}
-    </div>
-    <div class="card-body">
-      <div class="form-row">
 
-        <div class="form-group col-md-4">
-          <label for="name">Nome</label>
-          <input type="text" class="form-control" id="name" formControlName="name"/>
+  <p-panel [header]="pageTitle">
+
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Nome *:
+        </div>
+        <div class="ui-grid-col-3">
+          <input
+            pInputText
+            type="text"
+            formControlName="name"
+            class="ui-inputtext ui-corner-all"/>
           <app-form-field-error [form-control]="resourceForm.get('name')"></app-form-field-error>
         </div>
-
-        <div class="form-group col-md-8">
-            <label for="description">Descrição</label>
-            <input type="text" class="form-control" id="description" formControlName="description"/>
-            <app-form-field-error [form-control]="resourceForm.get('description')"></app-form-field-error>
-          </div>
+        <div class="ui-grid-col-2">
+          Descrição:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText
+                 type="text"
+                 formControlName="description"
+                 class="ui-inputtext ui-corner-all"/>
+          <app-form-field-error [form-control]="resourceForm.get('description')"></app-form-field-error>
+        </div>
       </div>
     </div>
-  </div>
+  </p-panel>
 
   <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
 
-  <button [disabled]="submittingForm || resourceForm.invalid"
-    type="submit" class="btn btn-primary btn-lg float-right mt-3">
-    Salvar
+  <button
+    pButton [disabled]="submittingForm || resourceForm.invalid"
+    type="submit"
+    label="Salvar"
+    class="ui-button-raised ui-button-success float-right mt-3">
   </button>
 
 </form>

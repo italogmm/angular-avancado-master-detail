@@ -1,31 +1,30 @@
 <app-bread-crumb
-  [items]="[{text: 'Categorias'}]">
+  [items]="[{label: 'Categorias'}]">
 </app-bread-crumb>
 
 <app-page-header
   page-title="Categorias"
   button-text="+ Nova Categoria"
-  button-class="btn-success float-right"
+  button-class="ui-button-success float-right"
   button-link="new">
 </app-page-header>
 
-<table class="table table-hover">
-  <thead>
-    <tr class="bg-primary text-light">
+<p-table [value]="resources" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
       <th>Categoria</th>
+      <th>Descrição</th>
       <th>Ações</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let category of resources">
+  </ng-template>
+  <ng-template pTemplate="body" let-category>
+    <tr>
+      <td>{{category.name}}</td>
+      <td>{{category.description}}</td>
       <td>
-        <strong>{{category.name}}</strong><br>
-        <small>{{category.description}}</small>
-      </td>
-      <td>
-        <a [routerLink]="[category.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
-        <button (click)="deleteResource(category)" class="btn btn-outline-danger btn-sm">Excluir</button>
+        <p-button label="Editar" [routerLink]="[category.id, 'edit']" class="mr-2"></p-button>
+        <button pButton label="Excluir" (click)="deleteResource(category)" class="ui-button-danger"></button>
       </td>
     </tr>
-  </tbody>
-</table>
+  </ng-template>
+</p-table>

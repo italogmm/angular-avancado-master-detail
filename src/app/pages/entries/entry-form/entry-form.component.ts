@@ -15,7 +15,7 @@ import {BaseResourceFormComponent} from '../../../shared/components/base-resourc
 })
 export class EntryFormComponent extends BaseResourceFormComponent<Entry> implements OnInit{
 
-  categories: Array<Category>;
+  categories: Category[];
 
   imaskConfig = {
     mask: Number,
@@ -55,7 +55,7 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
     return Object.entries(Entry.types).map(
       ([value, text]) => {
         return {
-          text: text,
+          label: text,
           value: value
         }
       }
@@ -77,7 +77,7 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
       amount: [null, [Validators.required]],
       date: [null, [Validators.required]],
       paid: [true, [Validators.required]],
-      categoryId: [null, [Validators.required]],
+      category: [null, [Validators.required]],
     })
   }
 
