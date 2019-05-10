@@ -1,6 +1,7 @@
-<app-bread-crumb
-  [items]="[{label: 'Lançamentos'}]">
-</app-bread-crumb>
+<p-breadcrumb
+  [home]="{icon: 'pi pi-home', url: '/'}"
+  [model]="[{label: 'Lançamentos', url: '/entries'}]">
+</p-breadcrumb>
 
 <app-page-header
   button-text="+ Novo Lançamento"

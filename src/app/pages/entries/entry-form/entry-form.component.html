@@ -1,6 +1,7 @@
-<app-bread-crumb
-  [items]="[{label: 'Lançamentos', url: '/entries'}, {label: 'Cadastro de lançamentos'}]">
-</app-bread-crumb>
+<p-breadcrumb
+  [home]="{icon: 'pi pi-home', url: '/'}"
+  [model]="[{label: 'Lançamentos', url: '/entries'}, {label: 'Cadastro de Lançamentos'}]">
+</p-breadcrumb>
 
 <app-page-header
   [page-title]="pageTitle"
@@ -81,11 +82,11 @@
         </div>
         <div class="ui-grid-col-4">
           <p-dropdown
-            [options]="categories"
-            formControlName="category"
-            placeholder="Selecione a categoria"
-            optionLabel="name"
-            [showClear]="true">
+              [options]="categories"
+              formControlName="category"
+              placeholder="Selecione a categoria"
+              optionLabel="name"
+              [showClear]="true">
           </p-dropdown>
         </div>
       </div>
